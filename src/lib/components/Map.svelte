@@ -103,7 +103,7 @@
     src={cursor}
     style:top={pointerCoordinates[1] + 'px'}
     style:left={pointerCoordinates[0] + 'px'}
-    class="absolute w-12"
+    class="absolute w-8"
   />
 {/if}
 <div class="absolute bottom-0 w-full p-3 flex justify-center">

@@ -90,6 +90,6 @@
     src={cursor}
     style:top={pointerCoordinates[1] + 'px'}
     style:left={pointerCoordinates[0] + 'px'}
-    class="absolute w-12"
+    class="absolute w-8"
   />
 {/if}
