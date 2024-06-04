@@ -84,7 +84,7 @@
 
 <div
   bind:this={container}
-  style:cursor={`url('${cursor}'), auto`}
+  style:cursor={`url("${cursor}"), auto`}
   class="w-full h-full ring-0"
   tabindex="-1"
 />

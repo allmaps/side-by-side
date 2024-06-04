@@ -79,7 +79,7 @@
 
 <div
   role="img"
-  style:cursor={`url('${cursor}'), auto`}
+  style:cursor={`url("${cursor}"), auto`}
   on:mousemove={handleMousemove}
   bind:this={container}
   class="w-full h-full"
