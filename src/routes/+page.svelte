@@ -15,12 +15,15 @@
   import Image from '$lib/components/Image.svelte'
   import Map from '$lib/components/Map.svelte'
 
+  const defaultUrl =
+    'https://annotations.allmaps.org/maps/b1798f1dba50ee1b@350c252b41b0b20b'
+
   let georeferencedMap: GeoreferencedMap | undefined
   let imageInfo: ImageInformationResponse | undefined
 
   let url: string | undefined = get(urlStore)
 
-  async function loadUrl(newUrl: string) {
+  async function loadUrl(newUrl: string = defaultUrl) {
     const annotation = await fetchJson(newUrl)
     const georeferencedMaps = parseAnnotation(annotation)
     georeferencedMap = georeferencedMaps[0]
