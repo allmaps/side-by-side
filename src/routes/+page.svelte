@@ -31,12 +31,12 @@
 </script>
 
 <main class="absolute flex flex-row w-full h-full">
-  <div class="w-full relative">
+  <div class="w-1/2 relative overflow-hidden">
     {#if imageInfo && georeferencedMap}
       <Image {georeferencedMap} {imageInfo} />
     {/if}
   </div>
-  <div class="w-full relative">
+  <div class="w-1/2 relative overflow-hidden">
     {#if georeferencedMap}
       <Map {georeferencedMap} />{/if}
   </div>
