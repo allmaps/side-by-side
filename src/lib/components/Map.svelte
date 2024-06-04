@@ -16,7 +16,16 @@
 
   let container: HTMLDivElement
   let map: Map | undefined
+  let warpedMapLayer: WarpedMapLayer | undefined
   let pointerCoordinates: [number, number] | undefined
+
+  let opacity = 1
+
+  $: {
+    if (warpedMapLayer) {
+      warpedMapLayer.setOpacity(opacity)
+    }
+  }
 
   $: {
     if (map && $pointer.type === 'image') {
@@ -61,7 +70,7 @@
 
     map.on('load', async () => {
       if (map) {
-        const warpedMapLayer = new WarpedMapLayer()
+        warpedMapLayer = new WarpedMapLayer()
         map.addLayer(warpedMapLayer)
 
         await warpedMapLayer.addGeoreferencedMap(georeferencedMap)
@@ -97,3 +106,8 @@
     class="absolute w-12"
   />
 {/if}
+<div class="absolute bottom-0 w-full p-3 flex justify-center">
+  <div class="rounded-full bg-white p-3 flex">
+    <input bind:value={opacity} min="0" max="1" step="0.01" type="range" />
+  </div>
+</div>
