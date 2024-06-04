@@ -1,9 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import { get } from 'svelte/store'
 
   import { fetchJson, fetchImageInfo } from '@allmaps/stdlib'
   import { parseAnnotation } from '@allmaps/annotation'
 
+  import { Header, URLInput, URLType, Loading, urlStore } from '@allmaps/ui'
   import type { Map as GeoreferencedMap } from '@allmaps/annotation'
   import { GcpTransformer } from '@allmaps/transform'
   import type { ImageInformationResponse } from 'ol/format/IIIFInfo.js'
@@ -16,11 +18,10 @@
   let georeferencedMap: GeoreferencedMap | undefined
   let imageInfo: ImageInformationResponse | undefined
 
-  const annotationUrl =
-    'https://annotations.allmaps.org/maps/b1798f1dba50ee1b@350c252b41b0b20b'
+  let url: string | undefined = get(urlStore)
 
-  onMount(async () => {
-    const annotation = await fetchJson(annotationUrl)
+  async function loadUrl(newUrl: string) {
+    const annotation = await fetchJson(newUrl)
     const georeferencedMaps = parseAnnotation(annotation)
     georeferencedMap = georeferencedMaps[0]
 
@@ -28,17 +29,36 @@
 
     const imageId = georeferencedMap.resource.id
     imageInfo = (await fetchImageInfo(imageId)) as ImageInformationResponse
+
+    url = newUrl
+    urlStore.set(url)
+  }
+
+  onMount(async () => {
+    urlStore.subscribe((value) => {
+      loadUrl(value)
+    })
   })
 </script>
 
-<main class="absolute flex flex-row w-full h-full">
-  <div class="w-1/2 relative overflow-hidden">
-    {#if imageInfo && georeferencedMap}
-      <Image {georeferencedMap} {imageInfo} />
+<div class="absolute flex flex-col w-full h-full">
+  <Header appName="Cursors">
+    {#if url}
+      <URLInput />
     {/if}
-  </div>
-  <div class="w-1/2 relative overflow-hidden">
-    {#if georeferencedMap}
-      <Map {georeferencedMap} />{/if}
-  </div>
-</main>
+  </Header>
+
+  <main class="flex flex-row w-full h-full">
+    {#key url}
+      <div class="w-1/2 relative overflow-hidden">
+        {#if imageInfo && georeferencedMap}
+          <Image {georeferencedMap} {imageInfo} />
+        {/if}
+      </div>
+      <div class="w-1/2 relative overflow-hidden">
+        {#if georeferencedMap}
+          <Map {georeferencedMap} />{/if}
+      </div>
+    {/key}
+  </main>
+</div>
