@@ -18,6 +18,8 @@
   const defaultUrl =
     'https://annotations.allmaps.org/maps/b1798f1dba50ee1b@350c252b41b0b20b'
 
+  $urlStore = defaultUrl
+
   let georeferencedMap: GeoreferencedMap | undefined
   let imageInfo: ImageInformationResponse | undefined
 
