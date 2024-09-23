@@ -26,6 +26,10 @@
   let url: string | undefined = get(urlStore)
 
   async function loadUrl(newUrl: string = defaultUrl) {
+    if (!newUrl) {
+      newUrl = defaultUrl
+    }
+
     const annotation = await fetchJson(newUrl)
     const georeferencedMaps = parseAnnotation(annotation)
     georeferencedMap = georeferencedMaps[0]
