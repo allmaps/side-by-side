@@ -5,7 +5,7 @@
   import { fetchJson, fetchImageInfo } from '@allmaps/stdlib'
   import { parseAnnotation } from '@allmaps/annotation'
 
-  import { Header, URLInput, URLType, Loading, urlStore } from '@allmaps/ui'
+  import { Header, URLInput, urlStore } from '@allmaps/ui'
   import type { Map as GeoreferencedMap } from '@allmaps/annotation'
   import { GcpTransformer } from '@allmaps/transform'
   import type { ImageInformationResponse } from 'ol/format/IIIFInfo.js'
@@ -17,8 +17,6 @@
 
   const defaultUrl =
     'https://annotations.allmaps.org/maps/b1798f1dba50ee1b@350c252b41b0b20b'
-
-  $urlStore = defaultUrl
 
   let georeferencedMap: GeoreferencedMap | undefined
   let imageInfo: ImageInformationResponse | undefined
