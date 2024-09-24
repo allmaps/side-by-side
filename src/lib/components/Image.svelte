@@ -40,8 +40,8 @@
   function handleMousemove(event: MouseEvent) {
     if (map) {
       const coordinate = map.getCoordinateFromPixel([
-        event.clientX,
-        event.clientY
+        event.layerX,
+        event.layerY
       ])
       const point = [coordinate[0], -coordinate[1]] as [number, number]
 
@@ -77,12 +77,14 @@
   })
 </script>
 
+<!--  -->
 <div
-  role="img"
-  style:cursor={`url("${cursor}"), auto`}
-  on:mousemove={handleMousemove}
   bind:this={container}
+  style:cursor={`url("${cursor}"), auto`}
+  role="img"
+  on:mousemove={handleMousemove}
   class="w-full h-full"
+  tabindex="-1"
 />
 {#if pointerCoordinates}
   <img
